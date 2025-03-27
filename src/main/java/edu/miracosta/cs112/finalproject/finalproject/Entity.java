@@ -1,3 +1,5 @@
+package edu.miracosta.cs112.finalproject.finalproject;
+
 public abstract class Entity {
     private String name = null;
     private String desc = null;
@@ -5,13 +7,14 @@ public abstract class Entity {
     private int damage = 0;
     private int fireRate = 0;
     private int luck = 0;
+    private int coins = 0;
     private int bombs = 0;
     private int keys = 0;
 
     protected Entity() {
     }
 
-    public void setName(){
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -19,8 +22,8 @@ public abstract class Entity {
         return name;
     }
 
-    public void setDesc(){
-        desc = name;
+    public void setDesc(String desc){
+        this.desc = name;
     }
 
     public String getDesc(){
@@ -51,12 +54,20 @@ public abstract class Entity {
         return this.fireRate;
     }
 
-    public int setLuck(int luck) {
+    public void setLuck(int luck) {
         this.luck = luck;
     }
 
     public int getLuck(){
         return this.luck;
+    }
+
+    public void setCoins(int coins) {
+        this.coins = coins;
+    }
+
+    public int getCoins(){
+        return this.coins;
     }
 
     public void setBombs(int bombs){
