@@ -14,4 +14,6 @@ module edu.miracosta.cs112.finalproject.finalproject {
     opens edu.miracosta.cs112.finalproject.finalproject.GameRooms to javafx.fxml;
     exports edu.miracosta.cs112.finalproject.finalproject.RewardItems;
     opens edu.miracosta.cs112.finalproject.finalproject.RewardItems to javafx.fxml;
+    exports edu.miracosta.cs112.finalproject.finalproject.controllers;
+    opens edu.miracosta.cs112.finalproject.finalproject.controllers to javafx.fxml;
 }

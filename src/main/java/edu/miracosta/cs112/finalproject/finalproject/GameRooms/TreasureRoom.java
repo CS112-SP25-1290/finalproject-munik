@@ -7,8 +7,8 @@ public class TreasureRoom extends ItemList {
 
 
     void ChooseItem(){
-        if (itemPoolId = 0) {
-
-        }
+//        if (itemPoolId = 0) {
+//
+//        }
     }
 }

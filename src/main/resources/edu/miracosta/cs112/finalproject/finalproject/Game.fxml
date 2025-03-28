@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane fx:id="root" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="edu.miracosta.cs112.finalproject.finalproject.controllers.GameController"
+            style="-fx-background-color: #1f1f1f;">
+
+
+    <Rectangle fx:id="player"
+               width="40" height="40"
+               fill="red"
+               x="100" y="100"/>
+</Pane>
