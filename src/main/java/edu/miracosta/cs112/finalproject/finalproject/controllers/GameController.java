@@ -8,7 +8,7 @@ import javafx.scene.shape.Rectangle;
 
 public class GameController {
 
-    private static final int PLAYER_SPEED = 10; // Speed of movement
+    private int PLAYER_SPEED = 10;
 
     @FXML
     private Pane root;
@@ -19,10 +19,7 @@ public class GameController {
     @FXML
     public void initialize() {
         root.setOnKeyPressed(this::handleMovement);
-        root.requestFocus(); // Ensure the Pane gets focus
-
-        // Optional: Make sure clicking on the pane sets focus
-        root.setOnMouseClicked(event -> root.requestFocus());
+        root.requestFocus();
     }
 
     private void handleMovement(KeyEvent event) {

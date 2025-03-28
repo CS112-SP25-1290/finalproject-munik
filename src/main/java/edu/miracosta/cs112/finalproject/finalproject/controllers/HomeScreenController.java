@@ -20,7 +20,6 @@ public class HomeScreenController {
 
         Stage stage = (Stage) welcomeText.getScene().getWindow();
 
-        // Set the new scene
         stage.setScene(gameScene);
         stage.show();
     }
