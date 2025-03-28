@@ -4,7 +4,7 @@ import edu.miracosta.cs112.finalproject.finalproject.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button; // Ensure this import is present
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -12,7 +12,7 @@ import java.io.IOException;
 public class CharacterSelectController {
 
     @FXML
-    private Button backButton; // Must match fx:id="backButton" in FXML
+    private Button backButton;
 
     @FXML
     protected void selectCharacter1() {
