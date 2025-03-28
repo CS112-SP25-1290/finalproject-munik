@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
 
-<Pane fx:id="root" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="edu.miracosta.cs112.finalproject.finalproject.controllers.GameController"
-            style="-fx-background-color: #1f1f1f;">
-
-
-    <Rectangle fx:id="player"
-               width="40" height="40"
-               fill="red"
-               x="100" y="100"/>
+<Pane fx:id="root" prefHeight="1024.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.miracosta.cs112.finalproject.finalproject.controllers.GameController">
+    <children>
+        <ImageView fx:id="player" fitHeight="50.0" fitWidth="50.0" layoutX="640" layoutY="512">
+            <image>
+                <Image url="@images/TestPlayer.png" />
+            </image>
+        </ImageView>
+    </children>
 </Pane>
