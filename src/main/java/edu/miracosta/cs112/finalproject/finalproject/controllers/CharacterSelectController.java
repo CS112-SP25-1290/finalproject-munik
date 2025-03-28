@@ -51,6 +51,7 @@ public class CharacterSelectController {
     private Label keysLabel;
 
     private CharacterList characterList = new CharacterList();
+    public static CharacterList.Playable1 selectedCharacter;
 
     @FXML
     public void initialize() {

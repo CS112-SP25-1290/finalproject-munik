@@ -1,12 +1,38 @@
 package edu.miracosta.cs112.finalproject.finalproject.controllers;
 
+import edu.miracosta.cs112.finalproject.finalproject.Entities.CharacterList;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.control.Label;
+
+
 
 public class GameController {
+    @FXML
+    private Label hpLabel;
+
+    @FXML
+    private Label dmgLabel;
+
+    @FXML
+    private Label fireRateLabel;
+
+    @FXML
+    private Label luckLabel;
+
+    @FXML
+    private Label coinsLabel;
+
+    @FXML
+    private Label bombsLabel;
+
+    @FXML
+    private Label keysLabel;
+
+    private CharacterList.Playable1 currentCharacter;
 
     private int PLAYER_SPEED = 10;
 
@@ -16,12 +42,32 @@ public class GameController {
     @FXML
     private ImageView player;  // Changed from Rectangle to ImageView
 
+
     @FXML
     public void initialize() {
+        //sets stats to the selected character
+        currentCharacter = CharacterSelectController.selectedCharacter;
+        if (currentCharacter == null) {
+            // Fallback to a default character if none selected
+            currentCharacter = new CharacterList().getIsaac();
+        }
+
+        updateStats();
+
         root.setOnKeyPressed(this::handleMovement);
         root.requestFocus();
 
         root.setOnMouseClicked(event -> root.requestFocus());
+    }
+//updates stats in Top left of running game
+    private void updateStats() {
+        hpLabel.setText("HP: " + currentCharacter.getHp());
+        dmgLabel.setText("DMG: " + currentCharacter.getDmg());
+        fireRateLabel.setText("Fire Rate: " + currentCharacter.getFireRate());
+        luckLabel.setText("Luck: " + currentCharacter.getLuck());
+        coinsLabel.setText("Coins: " + currentCharacter.getCoins());
+        bombsLabel.setText("Bombs: " + currentCharacter.getBombs());
+        keysLabel.setText("Keys: " + currentCharacter.getKeys());
     }
 
     private void handleMovement(KeyEvent event) {
