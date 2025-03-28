@@ -11,8 +11,24 @@
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
 
-    <Label text="Select Your Character"/>
-    <Button text="Character 1" onAction="#selectCharacter1"/>
-    <Button text="Character 2" onAction="#selectCharacter2"/>
+    <Label text="Select Your Character" style="-fx-font-size: 20px;"/>
+
+    <!-- Character Selection Buttons -->
+    <Button fx:id="character1Button" text="Character 1" onAction="#selectCharacter1"/>
+    <Button fx:id="character2Button" text="Character 2" onAction="#selectCharacter2"/>
+
+    <!-- Stats Display Area -->
+    <VBox fx:id="statsBox" spacing="10.0" alignment="CENTER">
+        <Label fx:id="nameLabel" text="Name: " />
+        <Label fx:id="descLabel" text="Description: " />
+        <Label fx:id="hpLabel" text="HP: " />
+        <Label fx:id="dmgLabel" text="DMG: " />
+        <Label fx:id="fireRateLabel" text="Fire Rate: " />
+        <Label fx:id="luckLabel" text="Luck: " />
+        <Label fx:id="coinsLabel" text="Coins: " />
+        <Label fx:id="bombsLabel" text="Bombs: " />
+        <Label fx:id="keysLabel" text="Keys: " />
+    </VBox>
+
     <Button fx:id="backButton" text="Back" onAction="#onBackButtonClick"/>
 </VBox>
