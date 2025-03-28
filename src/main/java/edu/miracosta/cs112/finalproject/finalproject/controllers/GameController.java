@@ -6,7 +6,12 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class GameController {
+
+    private final Set<KeyCode> keysPressed = new HashSet<>();
 
     private int PLAYER_SPEED = 10;
 
@@ -18,26 +23,36 @@ public class GameController {
 
     @FXML
     public void initialize() {
-        root.setOnKeyPressed(this::handleMovement);
         root.requestFocus();
-
+        root.setOnKeyPressed(this::handleKeyPress);
+        root.setOnKeyReleased(this::handleKeyRelease);
         root.setOnMouseClicked(event -> root.requestFocus());
     }
 
-    private void handleMovement(KeyEvent event) {
+    private void handleKeyPress(KeyEvent event) {
+        keysPressed.add(event.getCode());
+        updatePlayer();
+    }
+
+    private void handleKeyRelease(KeyEvent event) {
+        keysPressed.remove(event.getCode());
+        updatePlayer();
+    }
+
+    public void updatePlayer() {
         double x = player.getLayoutX() + player.getX();
         double y = player.getLayoutY() + player.getY();
 
-        if (event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) {
-            x = x - PLAYER_SPEED;
-        } else if (event.getCode() == KeyCode.D) {
-            x = x + PLAYER_SPEED;
+        if (keysPressed.contains(KeyCode.A) || keysPressed.contains(KeyCode.LEFT)) {
+            x -= PLAYER_SPEED;
+        } else if (keysPressed.contains(KeyCode.D) || keysPressed.contains(KeyCode.RIGHT)) {
+            x += PLAYER_SPEED;
         }
 
-        if (event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) {
-            y = y - PLAYER_SPEED;
-        } else if (event.getCode() == KeyCode.S) {
-            y = y + PLAYER_SPEED;
+        if (keysPressed.contains(KeyCode.W) || keysPressed.contains(KeyCode.UP)) {
+            y -= PLAYER_SPEED;
+        } else if (keysPressed.contains(KeyCode.S) || keysPressed.contains(KeyCode.DOWN)) {
+            y += PLAYER_SPEED;
         }
 
         double paneWidth = root.getWidth();
