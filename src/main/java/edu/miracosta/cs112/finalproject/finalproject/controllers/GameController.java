@@ -1,10 +1,10 @@
 package edu.miracosta.cs112.finalproject.finalproject.controllers;
 
 import javafx.fxml.FXML;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
 
 public class GameController {
 
@@ -14,7 +14,7 @@ public class GameController {
     private Pane root;
 
     @FXML
-    private Rectangle player;
+    private ImageView player;  // Changed from Rectangle to ImageView
 
     @FXML
     public void initialize() {
@@ -25,8 +25,8 @@ public class GameController {
     }
 
     private void handleMovement(KeyEvent event) {
-        double x = player.getX();
-        double y = player.getY();
+        double x = player.getLayoutX() + player.getX();
+        double y = player.getLayoutY() + player.getY();
 
         if (event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) {
             x = x - PLAYER_SPEED;
@@ -42,9 +42,10 @@ public class GameController {
 
         double paneWidth = root.getWidth();
         double paneHeight = root.getHeight();
-        double playerWidth = player.getWidth();
-        double playerHeight = player.getHeight();
+        double playerWidth = player.getFitWidth();   // Use fitWidth for ImageView
+        double playerHeight = player.getFitHeight(); // Use fitHeight for ImageView
 
+        // Boundary checking to keep the player within the pane
         if (x < 0) {
             x = 0;
         } else if (x + playerWidth > paneWidth) {
@@ -57,7 +58,7 @@ public class GameController {
             y = paneHeight - playerHeight;
         }
 
-        player.setX(x);
-        player.setY(y);
+        player.setX(x - player.getLayoutX());
+        player.setY(y - player.getLayoutY());
     }
 }
