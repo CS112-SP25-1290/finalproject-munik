@@ -28,4 +28,13 @@ public class HomeScreenController {
     protected void onQuitButtonClick() {
         System.exit(0);
     }
+
+    @FXML
+    protected void onSelectCharButtonClick() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("SelectChar.fxml"));
+        Scene charSelectScene = new Scene(fxmlLoader.load(), 1280, 720); // Adjust size as needed
+        Stage stage = (Stage) welcomeText.getScene().getWindow();
+        stage.setScene(charSelectScene);
+        stage.show();
+    }
 }

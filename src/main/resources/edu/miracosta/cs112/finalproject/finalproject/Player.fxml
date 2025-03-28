@@ -14,5 +14,6 @@
 
     <Label fx:id="welcomeText"/>
     <Button text="Play" onAction="#onPlayButtonClick"/>
+    <Button text="Select Character" onAction="#onSelectCharButtonClick"/>
     <Button text="Quit" onAction="#onQuitButtonClick"/>
 </VBox>
