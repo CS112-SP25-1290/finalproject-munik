@@ -1,4 +1,4 @@
-package edu.miracosta.cs112.finalproject.finalproject;
+package edu.miracosta.cs112.finalproject.finalproject.Entities;
 
 
 //creating a list of playable characters
