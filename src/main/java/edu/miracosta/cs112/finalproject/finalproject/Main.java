@@ -1,7 +1,5 @@
 package edu.miracosta.cs112.finalproject.finalproject;
 
-import edu.miracosta.cs112.finalproject.finalproject.controllers.GameController;
-import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

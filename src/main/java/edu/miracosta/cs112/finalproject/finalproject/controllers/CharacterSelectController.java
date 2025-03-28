@@ -14,41 +14,11 @@ import java.io.IOException;
 public class CharacterSelectController {
 
     @FXML
-    private Button backButton;
+    private Button backButton, character1Button, character2Button;
+
 
     @FXML
-    private Button character1Button;
-
-    @FXML
-    private Button character2Button;
-
-    // Stats display labels
-    @FXML
-    private Label nameLabel;
-
-    @FXML
-    private Label descLabel;
-
-    @FXML
-    private Label hpLabel;
-
-    @FXML
-    private Label dmgLabel;
-
-    @FXML
-    private Label fireRateLabel;
-
-    @FXML
-    private Label luckLabel;
-
-    @FXML
-    private Label coinsLabel;
-
-    @FXML
-    private Label bombsLabel;
-
-    @FXML
-    private Label keysLabel;
+    private Label nameLabel, descLabel, hpLabel, dmgLabel, fireRateLabel, luckLabel, coinsLabel, bombsLabel, keysLabel;
 
     private CharacterList characterList = new CharacterList();
 
