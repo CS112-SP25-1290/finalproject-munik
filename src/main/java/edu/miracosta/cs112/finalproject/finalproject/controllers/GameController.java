@@ -20,6 +20,8 @@ public class GameController {
     public void initialize() {
         root.setOnKeyPressed(this::handleMovement);
         root.requestFocus();
+
+        root.setOnMouseClicked(event -> root.requestFocus());
     }
 
     private void handleMovement(KeyEvent event) {
