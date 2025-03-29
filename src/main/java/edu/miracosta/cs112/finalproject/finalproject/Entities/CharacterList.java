@@ -4,15 +4,16 @@ package edu.miracosta.cs112.finalproject.finalproject.Entities;
 //creating a list of playable characters
 //In order to create new characters (name, description, HP, DMG, Fire Rate, Luck, Coins, Bombs, Keys)
 public class CharacterList {
-    public static class Playable1 {
+    public static class PlayableCharacter {
         private String name;
         private String description;
-        private int hp, dmg, fireRate, luck, coins, bombs, keys;
+        private int hp, speed, dmg, fireRate, luck, coins, bombs, keys;
 
-        public Playable1(String name, String description, int hp, int dmg, int fireRate, int luck, int coins, int bombs, int keys) {
+        public PlayableCharacter(String name, String description, int hp, int speed, int dmg, int fireRate, int luck, int coins, int bombs, int keys) {
             this.name = name;
             this.description = description;
             this.hp = hp;
+            this.speed = speed;
             this.dmg = dmg;
             this.fireRate = fireRate;
             this.luck = luck;
@@ -29,6 +30,9 @@ public class CharacterList {
         }
         public int getHp() {
             return hp;
+        }
+        public int getSpeed() {
+            return speed;
         }
         public int getDmg() {
             return dmg;
@@ -50,9 +54,10 @@ public class CharacterList {
         }
     }
 
-    private Playable1 isaac = new Playable1("Isaac", "Average stats across the board", 3, 3, 3, 0, 3, 1, 0);
-    private Playable1 character2 = new Playable1("Maggie", "Beefier but weaker", 4, 2, 2, 1, 2, 0, 1);
-
-    public Playable1 getIsaac() { return isaac; }
-    public Playable1 getCharacter2() { return character2; }
+    private PlayableCharacter isaac = new PlayableCharacter("Isaac", "Average stats across the board", 3, 10, 3, 3, 0, 3, 1, 0);
+    private PlayableCharacter character2 = new PlayableCharacter("Maggie", "Beefier but weaker", 4, 10, 2, 2, 1, 2, 0, 1);
+    private PlayableCharacter character3 = new PlayableCharacter("Garbo","The ultimate spy", 3, 15, 2, 3, 6, 0, 0, 3);
+    private PlayableCharacter character4 = new PlayableCharacter("Erwin", "Commander", 3, 8, 5, 2, 2, 2, 1, 0);
+    public PlayableCharacter getIsaac() { return isaac; }
+    public PlayableCharacter getCharacter2() { return character2; }
 }

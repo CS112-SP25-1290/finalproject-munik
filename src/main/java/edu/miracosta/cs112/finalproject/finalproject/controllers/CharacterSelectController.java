@@ -21,7 +21,7 @@ public class CharacterSelectController {
     private Label nameLabel, descLabel, hpLabel, dmgLabel, fireRateLabel, luckLabel, coinsLabel, bombsLabel, keysLabel;
 
     private CharacterList characterList = new CharacterList();
-    public static CharacterList.Playable1 selectedCharacter;
+    public static CharacterList.PlayableCharacter selectedCharacter;
 
     @FXML
     public void initialize() {
@@ -33,14 +33,14 @@ public class CharacterSelectController {
 
     @FXML
     protected void selectCharacter1() {
-        CharacterList.Playable1 isaac = characterList.getIsaac();
+        CharacterList.PlayableCharacter isaac = characterList.getIsaac();
         System.out.println(isaac.getName() + " selected");
         updateStats(isaac);
     }
 
     @FXML
     protected void selectCharacter2() {
-        CharacterList.Playable1 character2 = characterList.getCharacter2();
+        CharacterList.PlayableCharacter character2 = characterList.getCharacter2();
         System.out.println(character2.getName() + " selected");
         updateStats(character2);
     }
@@ -55,7 +55,7 @@ public class CharacterSelectController {
     }
 
     // Helper method to update stats display
-    private void updateStats(CharacterList.Playable1 character) {
+    private void updateStats(CharacterList.PlayableCharacter character) {
         nameLabel.setText("Name: " + character.getName());
         descLabel.setText("Description: " + character.getDescription());
         hpLabel.setText("HP: " + character.getHp());

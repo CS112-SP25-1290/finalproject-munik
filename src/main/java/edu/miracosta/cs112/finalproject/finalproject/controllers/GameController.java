@@ -32,7 +32,7 @@ public class GameController {
     @FXML
     private Label keysLabel;
 
-    private CharacterList.Playable1 currentCharacter;
+    private CharacterList.PlayableCharacter currentCharacter;
 
     private int PLAYER_SPEED = 10;
 
