@@ -59,7 +59,7 @@ public class GameController {
 
         root.setOnMouseClicked(event -> root.requestFocus());
     }
-//updates stats in Top left of running game
+    //updates stats in Top left of running game
     private void updateStats() {
         hpLabel.setText("HP: " + currentCharacter.getHp());
         dmgLabel.setText("DMG: " + currentCharacter.getDmg());

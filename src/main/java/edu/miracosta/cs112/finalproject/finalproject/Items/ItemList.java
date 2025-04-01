@@ -19,7 +19,7 @@ public class ItemList {
 
         allItems.add(new ItemCreation("Coin Bag", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7));
         allItems.add(new ItemCreation("Boxing Glove", 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0));
-
+        allItems.add(new ItemCreation("Dental Floss", 3, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0));
         //Create a temporary list to hold treasure room items
         List<ItemCreation> tempTreasureRoomItems = new ArrayList<>();
         List<ItemCreation> tempShopRoomItems = new ArrayList<>();
