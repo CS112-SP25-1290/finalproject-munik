@@ -4,7 +4,6 @@ import edu.miracosta.cs112.finalproject.finalproject.Entities.CharacterList;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.Label;
 
@@ -54,13 +53,10 @@ public class GameController {
         //sets stats to the selected character
         currentCharacter = CharacterSelectController.selectedCharacter;
         if (currentCharacter == null) {
-            // Fallback to a default character if none selected
             currentCharacter = new CharacterList().getIsaac();
         }
 
         updateStats();
-
-//        root.setOnKeyPressed(this::handleMovement);
 
         root.setOnKeyPressed(event -> {
             KeyCode key = event.getCode();
@@ -92,22 +88,6 @@ public class GameController {
         bombsLabel.setText("Bombs: " + currentCharacter.getBombs());
         keysLabel.setText("Keys: " + currentCharacter.getKeys());
     }
-
-//    private void handleMovement(KeyEvent event) {
-//        KeyCode keyCode = event.getCode();
-//
-//        switch (keyCode) {
-//            case A, LEFT, S, DOWN, D, RIGHT, W, UP -> {
-//                if (event.getEventType() == KeyEvent.KEY_PRESSED) {
-//                    updatePlayerLoc();
-//                    System.out.println("Key pressed: " + event.getEventType());
-//                } else if (event.getEventType() == KeyEvent.KEY_RELEASED) {
-//                    updatePlayerLoc();
-//                    System.out.println("Key released: " + event.getEventType());
-//                }
-//            }
-//        }
-//    }
 
     public void updatePlayerLoc() {
 
