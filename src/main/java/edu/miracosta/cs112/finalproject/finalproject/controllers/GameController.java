@@ -8,7 +8,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.Label;
 
-
+import java.util.HashSet;
+import java.util.Set;
 
 public class GameController {
     @FXML
@@ -42,9 +43,14 @@ public class GameController {
     @FXML
     private ImageView player;  // Changed from Rectangle to ImageView
 
+    private Set<KeyCode> movementSet = new HashSet<KeyCode>();
+
+    double x;
+    double y;
 
     @FXML
     public void initialize() {
+        System.out.println("STarted");
         //sets stats to the selected character
         currentCharacter = CharacterSelectController.selectedCharacter;
         if (currentCharacter == null) {
@@ -54,12 +60,29 @@ public class GameController {
 
         updateStats();
 
-        root.setOnKeyPressed(this::handleMovement);
+//        root.setOnKeyPressed(this::handleMovement);
+
+        root.setOnKeyPressed(event -> {
+            KeyCode key = event.getCode();
+            movementSet.add(key);
+        });
+
+        root.setOnKeyReleased(event -> {
+            KeyCode key = event.getCode();
+            movementSet.remove(key);
+        });
+
         root.requestFocus();
 
         root.setOnMouseClicked(event -> root.requestFocus());
+
+        x = player.getLayoutX() + player.getX();
+        y = player.getLayoutY() + player.getY();
+
+        GameLoop gameLoop = new GameLoop(this);
+        gameLoop.start();
     }
-//updates stats in Top left of running game
+
     private void updateStats() {
         hpLabel.setText("HP: " + currentCharacter.getHp());
         dmgLabel.setText("DMG: " + currentCharacter.getDmg());
@@ -70,19 +93,37 @@ public class GameController {
         keysLabel.setText("Keys: " + currentCharacter.getKeys());
     }
 
-    private void handleMovement(KeyEvent event) {
-        double x = player.getLayoutX() + player.getX();
-        double y = player.getLayoutY() + player.getY();
+//    private void handleMovement(KeyEvent event) {
+//        KeyCode keyCode = event.getCode();
+//
+//        switch (keyCode) {
+//            case A, LEFT, S, DOWN, D, RIGHT, W, UP -> {
+//                if (event.getEventType() == KeyEvent.KEY_PRESSED) {
+//                    updatePlayerLoc();
+//                    System.out.println("Key pressed: " + event.getEventType());
+//                } else if (event.getEventType() == KeyEvent.KEY_RELEASED) {
+//                    updatePlayerLoc();
+//                    System.out.println("Key released: " + event.getEventType());
+//                }
+//            }
+//        }
+//    }
 
-        if (event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) {
+    public void updatePlayerLoc() {
+
+        if (movementSet.contains(KeyCode.A) || movementSet.contains(KeyCode.LEFT)) {
             x = x - PLAYER_SPEED;
-        } else if (event.getCode() == KeyCode.D) {
+        }
+
+        if (movementSet.contains(KeyCode.D) || movementSet.contains(KeyCode.RIGHT)) {
             x = x + PLAYER_SPEED;
         }
 
-        if (event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) {
+        if (movementSet.contains(KeyCode.W) || movementSet.contains(KeyCode.UP)) {
             y = y - PLAYER_SPEED;
-        } else if (event.getCode() == KeyCode.S) {
+        }
+
+        if (movementSet.contains(KeyCode.S) || movementSet.contains(KeyCode.DOWN)) {
             y = y + PLAYER_SPEED;
         }
 

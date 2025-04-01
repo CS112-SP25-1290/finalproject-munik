@@ -1,5 +1,7 @@
 package edu.miracosta.cs112.finalproject.finalproject;
 
+import edu.miracosta.cs112.finalproject.finalproject.controllers.GameController;
+import edu.miracosta.cs112.finalproject.finalproject.controllers.GameLoop;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -21,5 +23,4 @@ public class Main extends Application {
         stage.setScene(homeScreen);
         stage.show();
     }
-
 }
