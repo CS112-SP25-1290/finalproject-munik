@@ -90,22 +90,35 @@ public class GameController {
     }
 
     public void updatePlayerLoc() {
+        double dx = 0; // Change in X coordinate
+        double dy = 0; // Change in Y coordinate
 
-        if (movementSet.contains(KeyCode.A) || movementSet.contains(KeyCode.LEFT)) {
-            x = x - PLAYER_SPEED;
+        if (movementSet.contains(KeyCode.A)) {
+            dx -= PLAYER_SPEED;
         }
 
-        if (movementSet.contains(KeyCode.D) || movementSet.contains(KeyCode.RIGHT)) {
-            x = x + PLAYER_SPEED;
+        if (movementSet.contains(KeyCode.D)) {
+            dx += PLAYER_SPEED;
         }
 
-        if (movementSet.contains(KeyCode.W) || movementSet.contains(KeyCode.UP)) {
-            y = y - PLAYER_SPEED;
+        if (movementSet.contains(KeyCode.W)) {
+            dy -= PLAYER_SPEED;
         }
 
-        if (movementSet.contains(KeyCode.S) || movementSet.contains(KeyCode.DOWN)) {
-            y = y + PLAYER_SPEED;
+        if (movementSet.contains(KeyCode.S)) {
+            dy += PLAYER_SPEED;
         }
+
+        // Normalize the movement vector
+        double magnitude = Math.sqrt(dx * dx + dy * dy);
+        if (magnitude > 0) {
+            dx /= magnitude;
+            dy /= magnitude;
+        }
+
+        // Apply normalized movement
+        double newX = player.getLayoutX() + player.getX() + dx * PLAYER_SPEED;
+        double newY = player.getLayoutY() + player.getY() + dy * PLAYER_SPEED;
 
         double paneWidth = root.getWidth();
         double paneHeight = root.getHeight();
@@ -113,19 +126,20 @@ public class GameController {
         double playerHeight = player.getFitHeight(); // Use fitHeight for ImageView
 
         // Boundary checking to keep the player within the pane
-        if (x < 0) {
-            x = 0;
-        } else if (x + playerWidth > paneWidth) {
-            x = paneWidth - playerWidth;
+        if (newX < 0) {
+            newX = 0;
+        } else if (newX + playerWidth > paneWidth) {
+            newX = paneWidth - playerWidth;
         }
 
-        if (y < 0) {
-            y = 0;
-        } else if (y + playerHeight > paneHeight) {
-            y = paneHeight - playerHeight;
+        if (newY < 0) {
+            newY = 0;
+        } else if (newY + playerHeight > paneHeight) {
+            newY = paneHeight - playerHeight;
         }
 
-        player.setX(x - player.getLayoutX());
-        player.setY(y - player.getLayoutY());
+        // Update player position
+        player.setX(newX - player.getLayoutX());
+        player.setY(newY - player.getLayoutY());
     }
 }
