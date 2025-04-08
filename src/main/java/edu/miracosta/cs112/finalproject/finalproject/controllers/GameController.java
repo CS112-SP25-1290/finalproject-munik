@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class GameController {
     @FXML
-    private Label hpLabel;
+    private Label nameLabel, hpLabel;
 
     @FXML
     private Label dmgLabel;
@@ -32,7 +32,7 @@ public class GameController {
     @FXML
     private Label keysLabel;
 
-    private CharacterList.PlayableCharacter currentCharacter;
+    private CharacterList characterList = CharacterList.getInstance();
 
     private int PLAYER_SPEED = 10;
 
@@ -51,11 +51,12 @@ public class GameController {
     public void initialize() {
         System.out.println("STarted");
         //sets stats to the selected character
-        currentCharacter = CharacterSelectController.selectedCharacter;
+        CharacterList.PlayableCharacter currentCharacter = characterList.getCurrentCharacter();
         if (currentCharacter == null) {
             currentCharacter = new CharacterList().getIsaac();
         }
 
+        PLAYER_SPEED = currentCharacter.getSpeed();
         updateStats();
 
         root.setOnKeyPressed(event -> {
@@ -80,6 +81,9 @@ public class GameController {
     }
 
     private void updateStats() {
+        CharacterList.PlayableCharacter currentCharacter = characterList.getCurrentCharacter();
+
+        nameLabel.setText("Name: " + currentCharacter.getName());
         hpLabel.setText("HP: " + currentCharacter.getHp());
         dmgLabel.setText("DMG: " + currentCharacter.getDmg());
         fireRateLabel.setText("Fire Rate: " + currentCharacter.getFireRate());

@@ -20,14 +20,13 @@ public class CharacterSelectController {
     @FXML
     private Label nameLabel, descLabel, hpLabel, dmgLabel, fireRateLabel, luckLabel, coinsLabel, bombsLabel, keysLabel;
 
-    private CharacterList characterList = new CharacterList();
+    private final CharacterList characterList = CharacterList.getInstance();
     public static CharacterList.PlayableCharacter selectedCharacter;
 
     @FXML
     public void initialize() {
         character1Button.setText(characterList.getIsaac().getName());
         character2Button.setText(characterList.getCharacter2().getName());
-        // Optionally set default stats (e.g., Isaac) on load
         updateStats(characterList.getIsaac());
     }
 
@@ -65,5 +64,6 @@ public class CharacterSelectController {
         coinsLabel.setText("Coins: " + character.getCoins());
         bombsLabel.setText("Bombs: " + character.getBombs());
         keysLabel.setText("Keys: " + character.getKeys());
+        characterList.setCurrentCharacter(character);
     }
 }

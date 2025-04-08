@@ -1,5 +1,6 @@
 package edu.miracosta.cs112.finalproject.finalproject;
 
+import edu.miracosta.cs112.finalproject.finalproject.Entities.CharacterList;
 import edu.miracosta.cs112.finalproject.finalproject.controllers.GameController;
 import edu.miracosta.cs112.finalproject.finalproject.controllers.GameLoop;
 import javafx.application.Application;
@@ -10,6 +11,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Main extends Application {
+
+    CharacterList characterList = new CharacterList();
 
     public static void main(String[] args) {
         launch(args);

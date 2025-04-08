@@ -4,9 +4,16 @@ package edu.miracosta.cs112.finalproject.finalproject.Entities;
 //creating a list of playable characters
 //In order to create new characters (name, description, HP, DMG, Fire Rate, Luck, Coins, Bombs, Keys)
 public class CharacterList {
+    private static final CharacterList instance = new CharacterList();
+
+    public static CharacterList getInstance() {
+        return instance;
+    }
+
     public static class PlayableCharacter {
         private String name;
         private String description;
+
         private int hp, speed, dmg, fireRate, luck, coins, bombs, keys;
 
         public PlayableCharacter(String name, String description, int hp, int speed, int dmg, int fireRate, int luck, int coins, int bombs, int keys) {
@@ -54,10 +61,22 @@ public class CharacterList {
         }
     }
 
-    private PlayableCharacter isaac = new PlayableCharacter("Isaac", "Average stats across the board", 3, 10, 3, 3, 0, 3, 1, 0);
-    private PlayableCharacter character2 = new PlayableCharacter("Maggie", "Beefier but weaker", 4, 10, 2, 2, 1, 2, 0, 1);
+    private PlayableCharacter isaac = new PlayableCharacter("Isaac", "Average stats across the board", 3, 1, 3, 3, 0, 3, 1, 0);
+    private PlayableCharacter character2 = new PlayableCharacter("Maggie", "Beefier but weaker", 4, 20, 2, 2, 1, 2, 0, 1);
     private PlayableCharacter character3 = new PlayableCharacter("Garbo","The ultimate spy", 3, 15, 2, 3, 6, 0, 0, 3);
     private PlayableCharacter character4 = new PlayableCharacter("Erwin", "Commander", 3, 8, 5, 2, 2, 2, 1, 0);
     public PlayableCharacter getIsaac() { return isaac; }
     public PlayableCharacter getCharacter2() { return character2; }
+
+    public PlayableCharacter getCurrentCharacter() {
+        return currentCharacter;
+    }
+
+    public void setCurrentCharacter(PlayableCharacter currentCharacter) {
+        this.currentCharacter = currentCharacter;
+    }
+
+    private PlayableCharacter currentCharacter = isaac;
+
+
 }
