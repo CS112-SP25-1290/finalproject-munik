@@ -61,10 +61,10 @@ public class CharacterList {
         }
     }
 
-    private PlayableCharacter isaac = new PlayableCharacter("Isaac", "Average stats across the board", 3, 1, 3, 3, 0, 3, 1, 0);
-    private PlayableCharacter character2 = new PlayableCharacter("Maggie", "Beefier but weaker", 4, 20, 2, 2, 1, 2, 0, 1);
-    private PlayableCharacter character3 = new PlayableCharacter("Garbo","The ultimate spy", 3, 15, 2, 3, 6, 0, 0, 3);
-    private PlayableCharacter character4 = new PlayableCharacter("Erwin", "Commander", 3, 8, 5, 2, 2, 2, 1, 0);
+    private PlayableCharacter isaac = new PlayableCharacter("Isaac", "Average stats across the board", 3, 8, 3, 3, 0, 3, 1, 0);
+    private PlayableCharacter character2 = new PlayableCharacter("Maggie", "Beefier but weaker", 4, 6, 2, 2, 1, 2, 0, 1);
+    private PlayableCharacter character3 = new PlayableCharacter("Garbo","The ultimate spy", 3, 10, 2, 3, 6, 0, 0, 3);
+    private PlayableCharacter character4 = new PlayableCharacter("Erwin", "Commander", 3, 6, 5, 2, 2, 2, 1, 0);
     public PlayableCharacter getIsaac() { return isaac; }
     public PlayableCharacter getCharacter2() { return character2; }
 
