@@ -15,9 +15,9 @@
             </image>
         </ImageView>
 
-        <ImageView fx:id="player" fitHeight="50.0" fitWidth="50.0" layoutX="640" layoutY="512">
+        <ImageView fx:id="player" fitHeight="110.0" fitWidth="90.0" layoutX="640" layoutY="512">
             <image>
-                <Image url="@images/TestPlayer.png" />
+                <Image url="@images/Maggy.png" />
             </image>
         </ImageView>
 
