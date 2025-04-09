@@ -14,7 +14,7 @@ import java.io.IOException;
 public class CharacterSelectController {
 
     @FXML
-    private Button backButton, character1Button, character2Button;
+    private Button backButton, character1Button, character2Button, character3Button, character4Button;
 
 
     @FXML
@@ -27,6 +27,8 @@ public class CharacterSelectController {
     public void initialize() {
         character1Button.setText(characterList.getIsaac().getName());
         character2Button.setText(characterList.getCharacter2().getName());
+        character3Button.setText(characterList.getCharacter3().getName());
+        character4Button.setText(characterList.getCharacter4().getName());
         updateStats(characterList.getIsaac());
     }
 
@@ -42,6 +44,20 @@ public class CharacterSelectController {
         CharacterList.PlayableCharacter character2 = characterList.getCharacter2();
         System.out.println(character2.getName() + " selected");
         updateStats(character2);
+    }
+
+    @FXML
+    protected void selectCharacter3() {
+        CharacterList.PlayableCharacter character3 = characterList.getCharacter3();
+        System.out.println(character3.getName() + " selected");
+        updateStats(character3);
+    }
+
+    @FXML
+    protected void selectCharacter4() {
+        CharacterList.PlayableCharacter character4 = characterList.getCharacter4();
+        System.out.println(character4.getName() + " selected");
+        updateStats(character4);
     }
 
     @FXML
