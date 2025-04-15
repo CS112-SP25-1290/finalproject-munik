@@ -12,8 +12,6 @@ import java.io.IOException;
 
 public class Main extends Application {
 
-    CharacterList characterList = new CharacterList();
-
     public static void main(String[] args) {
         launch(args);
     }

@@ -16,6 +16,8 @@
     <!-- Character Selection Buttons -->
     <Button fx:id="character1Button" text="Character 1" onAction="#selectCharacter1"/>
     <Button fx:id="character2Button" text="Character 2" onAction="#selectCharacter2"/>
+    <Button fx:id="character3Button" text="Character 3" onAction="#selectCharacter3"/>
+    <Button fx:id="character4Button" text="Character 4" onAction="#selectCharacter4"/>
 
     <!-- Stats Display Area -->
     <VBox fx:id="statsBox" spacing="10.0" alignment="CENTER">

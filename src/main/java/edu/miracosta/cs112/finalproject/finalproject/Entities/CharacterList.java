@@ -1,6 +1,11 @@
 package edu.miracosta.cs112.finalproject.finalproject.Entities;
 
 
+import javafx.animation.AnimationTimer;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+
 //creating a list of playable characters
 //In order to create new characters (name, description, HP, DMG, Fire Rate, Luck, Coins, Bombs, Keys)
 public class CharacterList {
@@ -10,11 +15,30 @@ public class CharacterList {
         return instance;
     }
 
-    public static class PlayableCharacter {
+    public static class PlayableCharacter extends Entity {
         private String name;
         private String description;
 
         private int hp, speed, dmg, fireRate, luck, coins, bombs, keys;
+        private double x;
+
+        public double getY() {
+            return y;
+        }
+
+        public void setY(double y) {
+            this.y = y;
+        }
+
+        public double getX() {
+            return x;
+        }
+
+        public void setX(double x) {
+            this.x = x;
+        }
+
+        private double y;
 
         public PlayableCharacter(String name, String description, int hp, int speed, int dmg, int fireRate, int luck, int coins, int bombs, int keys) {
             this.name = name;
@@ -58,6 +82,48 @@ public class CharacterList {
         }
         public int getKeys() {
             return keys;
+        }
+
+
+        public void shoot(double mouseX, double mouseY, double startX, double startY, Pane root) {
+            Circle circle = new Circle();
+            circle.setCenterX(startX);
+            circle.setCenterY(startY);
+            circle.setRadius(7);
+            circle.setFill(Color.GHOSTWHITE);
+
+            System.out.println("Circle Created");
+
+            // Add the circle to the scene
+            root.getChildren().add(circle);
+            System.out.println("Added circle to the scene");
+
+            double deltaX = mouseX - startX;
+            double deltaY = mouseY - startY;
+
+            // Get the angle in radians
+            double angle = Math.atan2(deltaY, deltaX);
+            double speed = 5;
+            double dx = Math.cos(angle) * speed;
+            double dy = Math.sin(angle) * speed;
+
+            // AnimationTimer to move the circle
+            new AnimationTimer() {
+                @Override
+                public void handle(long now) {
+                    circle.setCenterX(circle.getCenterX() + dx);
+                    circle.setCenterY(circle.getCenterY() + dy);
+
+                    // Check if the circle has reached the scene's borders
+                    if (circle.getCenterX() <= 0 || circle.getCenterX() >= 1280 ||
+                            circle.getCenterY() <= 0 || circle.getCenterY() >= 720) {
+                        // Stop the timer and remove the circle
+                        stop();
+                        root.getChildren().remove(circle);
+                        System.out.println("Cleaned up circle");
+                    }
+                }
+            }.start();
         }
     }
 

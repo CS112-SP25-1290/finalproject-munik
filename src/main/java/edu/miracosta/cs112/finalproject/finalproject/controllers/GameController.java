@@ -15,6 +15,9 @@ public class GameController {
     private Label nameLabel, hpLabel;
 
     @FXML
+    private Label xLocation, yLocation;
+
+    @FXML
     private Label dmgLabel;
 
     @FXML
@@ -49,7 +52,7 @@ public class GameController {
 
     @FXML
     public void initialize() {
-        System.out.println("STarted");
+        System.out.println("Started");
         //sets stats to the selected character
         CharacterList.PlayableCharacter currentCharacter = characterList.getCurrentCharacter();
         if (currentCharacter == null) {
@@ -71,7 +74,10 @@ public class GameController {
 
         root.requestFocus();
 
-        root.setOnMouseClicked(event -> root.requestFocus());
+        root.setOnMouseClicked(mouseEvent -> {
+            handleShoot(mouseEvent.getX(), mouseEvent.getY());
+            root.requestFocus();
+        });
 
         x = player.getLayoutX() + player.getX();
         y = player.getLayoutY() + player.getY();
@@ -80,7 +86,7 @@ public class GameController {
         gameLoop.start();
     }
 
-    private void updateStats() {
+    public void updateStats() {
         CharacterList.PlayableCharacter currentCharacter = characterList.getCurrentCharacter();
 
         nameLabel.setText("Name: " + currentCharacter.getName());
@@ -91,6 +97,8 @@ public class GameController {
         coinsLabel.setText("Coins: " + currentCharacter.getCoins());
         bombsLabel.setText("Bombs: " + currentCharacter.getBombs());
         keysLabel.setText("Keys: " + currentCharacter.getKeys());
+        xLocation.setText("X Loc: " + currentCharacter.getX());
+        yLocation.setText("Keys: " + currentCharacter.getY());
     }
 
     public void updatePlayerLoc() {
@@ -143,7 +151,25 @@ public class GameController {
         }
 
         // Update player position
-        player.setX(newX - player.getLayoutX());
-        player.setY(newY - player.getLayoutY());
+        double finalX = newX - player.getLayoutX();
+        double finalY = newY - player.getLayoutY();
+
+
+        player.setX(finalX);
+        player.setY(finalY);
+
+        characterList.getCurrentCharacter().setX(finalX);
+        characterList.getCurrentCharacter().setY(finalY);
+
+//        System.out.println(finalX + " " + finalY);
     }
+
+    private void handleShoot(double mouseX, double mouseY) {
+        double startX = player.getLayoutX() + player.getX() + player.getFitWidth() / 2;
+        double startY = player.getLayoutY() + player.getY() + player.getFitHeight() / 2;
+
+        CharacterList.PlayableCharacter currentCharacter = characterList.getCurrentCharacter();
+        currentCharacter.shoot(mouseX, mouseY, startX, startY, root);
+    }
+
 }

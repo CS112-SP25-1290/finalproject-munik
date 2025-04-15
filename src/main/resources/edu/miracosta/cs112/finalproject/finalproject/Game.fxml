@@ -30,6 +30,8 @@
             <Label fx:id="coinsLabel" text="Coins: " />
             <Label fx:id="bombsLabel" text="Bombs: " />
             <Label fx:id="keysLabel" text="Keys: " />
+            <Label fx:id="xLocation" text="X Loc: " />
+            <Label fx:id="yLocation" text="Y Loc: " />
         </VBox>
 
     </children>
