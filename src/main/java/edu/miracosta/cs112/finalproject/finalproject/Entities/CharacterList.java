@@ -1,15 +1,21 @@
 package edu.miracosta.cs112.finalproject.finalproject.Entities;
 
 
+import edu.miracosta.cs112.finalproject.finalproject.Items.Bullet;
+import edu.miracosta.cs112.finalproject.finalproject.Items.Location;
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
+import java.util.ArrayList;
+import java.util.List;
+
 //creating a list of playable characters
 //In order to create new characters (name, description, HP, DMG, Fire Rate, Luck, Coins, Bombs, Keys)
 public class CharacterList {
     private static final CharacterList instance = new CharacterList();
+    public static List<Bullet> bullets = new ArrayList<>();
 
     public static CharacterList getInstance() {
         return instance;
@@ -86,17 +92,12 @@ public class CharacterList {
 
 
         public void shoot(double mouseX, double mouseY, double startX, double startY, Pane root) {
-            Circle circle = new Circle();
-            circle.setCenterX(startX);
-            circle.setCenterY(startY);
-            circle.setRadius(7);
+            Bullet bullet = new Bullet(startX, startY);
+            Circle circle = bullet.getCircle();
             circle.setFill(Color.GHOSTWHITE);
 
-            System.out.println("Circle Created");
-
-            // Add the circle to the scene
+            bullets.add(bullet);
             root.getChildren().add(circle);
-            System.out.println("Added circle to the scene");
 
             double deltaX = mouseX - startX;
             double deltaY = mouseY - startY;
@@ -111,19 +112,27 @@ public class CharacterList {
             new AnimationTimer() {
                 @Override
                 public void handle(long now) {
-                    circle.setCenterX(circle.getCenterX() + dx);
-                    circle.setCenterY(circle.getCenterY() + dy);
+                    double newX = circle.getCenterX() + dx;
+                    double newY = circle.getCenterY() + dy;
+
+                    circle.setCenterX(newX);
+                    circle.setCenterY(newY);
+                    bullet.setLocation(newX, newY);
 
                     // Check if the circle has reached the scene's borders
                     if (circle.getCenterX() <= 0 || circle.getCenterX() >= 1280 ||
                             circle.getCenterY() <= 0 || circle.getCenterY() >= 720) {
-                        // Stop the timer and remove the circle
                         stop();
                         root.getChildren().remove(circle);
                         System.out.println("Cleaned up circle");
                     }
                 }
             }.start();
+        }
+
+
+        public Location getLocation() {
+            return new Location(getX(), getY());
         }
     }
 

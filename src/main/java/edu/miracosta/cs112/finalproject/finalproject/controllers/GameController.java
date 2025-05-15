@@ -1,12 +1,14 @@
 package edu.miracosta.cs112.finalproject.finalproject.controllers;
 
 import edu.miracosta.cs112.finalproject.finalproject.Entities.CharacterList;
+import edu.miracosta.cs112.finalproject.finalproject.Entities.Enemy;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.Label;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -46,6 +48,7 @@ public class GameController {
     private ImageView player;  // Changed from Rectangle to ImageView
 
     private Set<KeyCode> movementSet = new HashSet<KeyCode>();
+    public static ArrayList<Enemy> enemies = new ArrayList<>();
 
     double x;
     double y;
@@ -82,6 +85,11 @@ public class GameController {
         x = player.getLayoutX() + player.getX();
         y = player.getLayoutY() + player.getY();
 
+        for(int i = 0; i < 3; i++) {
+            Enemy enemy = new Enemy(root);
+            enemy.spawnEntity();
+            enemies.add(enemy);
+        }
         GameLoop gameLoop = new GameLoop(this);
         gameLoop.start();
     }
@@ -154,7 +162,6 @@ public class GameController {
         double finalX = newX - player.getLayoutX();
         double finalY = newY - player.getLayoutY();
 
-
         player.setX(finalX);
         player.setY(finalY);
 
@@ -170,6 +177,10 @@ public class GameController {
 
         CharacterList.PlayableCharacter currentCharacter = characterList.getCurrentCharacter();
         currentCharacter.shoot(mouseX, mouseY, startX, startY, root);
+    }
+
+    public Pane getRoot() {
+        return root;
     }
 
 }

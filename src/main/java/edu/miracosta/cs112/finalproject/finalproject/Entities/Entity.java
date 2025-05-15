@@ -1,7 +1,6 @@
 package edu.miracosta.cs112.finalproject.finalproject.Entities;
 
 import javafx.animation.AnimationTimer;
-import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -12,6 +11,14 @@ public abstract class Entity {
     private int fireRate = 0;
     private int HP = 0;
     private int speed = 0;
+
+    public Entity(String name, String description, int fireRate, int HP, int speed) {
+        this.name = name;
+        this.description = description;
+        this.fireRate = fireRate;
+        this.HP = HP;
+        this.speed = speed;
+    }
 
     public double getX() {
         return x;
