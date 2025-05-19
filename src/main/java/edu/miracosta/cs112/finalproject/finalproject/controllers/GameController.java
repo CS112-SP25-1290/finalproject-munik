@@ -37,7 +37,14 @@ public class GameController {
     @FXML
     private Label keysLabel;
 
+    @FXML
+    private Label roundLabel;
+
+    @FXML
+    private Label timerLabel;
+
     private CharacterList characterList = CharacterList.getInstance();
+    private RoundManager roundManager;
 
     private int PLAYER_SPEED = 10;
 
@@ -85,11 +92,15 @@ public class GameController {
         x = player.getLayoutX() + player.getX();
         y = player.getLayoutY() + player.getY();
 
-        for(int i = 0; i < 3; i++) {
-            Enemy enemy = new Enemy(root);
-            enemy.spawnEntity();
-            enemies.add(enemy);
-        }
+        // Initialize round manager after UI elements
+        roundManager = new RoundManager(root, roundLabel, timerLabel);
+
+        // Clear any existing enemies
+        enemies.clear();
+
+        // Start the round-based game
+        roundManager.startGame();
+
         GameLoop gameLoop = new GameLoop(this);
         gameLoop.start();
     }
@@ -106,7 +117,7 @@ public class GameController {
         bombsLabel.setText("Bombs: " + currentCharacter.getBombs());
         keysLabel.setText("Keys: " + currentCharacter.getKeys());
         xLocation.setText("X Loc: " + currentCharacter.getX());
-        yLocation.setText("Keys: " + currentCharacter.getY());
+        yLocation.setText("Y Loc: " + currentCharacter.getY());
     }
 
     public void updatePlayerLoc() {
@@ -167,8 +178,6 @@ public class GameController {
 
         characterList.getCurrentCharacter().setX(finalX);
         characterList.getCurrentCharacter().setY(finalY);
-
-//        System.out.println(finalX + " " + finalY);
     }
 
     private void handleShoot(double mouseX, double mouseY) {
@@ -179,8 +188,18 @@ public class GameController {
         currentCharacter.shoot(mouseX, mouseY, startX, startY, root);
     }
 
+    public void removeEnemy(Enemy enemy) {
+        if (roundManager != null) {
+            roundManager.removeEnemy(enemy);
+        }
+        enemies.remove(enemy);
+    }
+
     public Pane getRoot() {
         return root;
     }
 
+    public RoundManager getRoundManager() {
+        return roundManager;
+    }
 }

@@ -25,11 +25,16 @@
             <Label fx:id="yLocation" text="Y Loc: " />
         </VBox>
 
-           <ImageView fx:id="player" fitHeight="110.0" fitWidth="90.0" layoutX="-20.0" layoutY="-7.0">
+        <!-- Round information display -->
+        <HBox alignment="TOP_LEFT" layoutX="20.0" layoutY="20.0" spacing="20.0" style="-fx-background-color: rgba(255, 255, 255, 0.8); -fx-padding: 10; -fx-border-color: black; -fx-border-width: 1;">
+            <Label fx:id="roundLabel" style="-fx-font-size: 18;" text="Round: 0/40" />
+            <Label fx:id="timerLabel" style="-fx-font-size: 18;" text="Next Round: 10s" />
+        </HBox>
+
+        <ImageView fx:id="player" fitHeight="110.0" fitWidth="90.0" layoutX="-20.0" layoutY="-7.0">
             <image>
                 <Image url="@images/Maggy.png" />
             </image>
         </ImageView>
-
     </children>
 </Pane>
