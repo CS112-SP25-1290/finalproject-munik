@@ -3,13 +3,13 @@ package edu.miracosta.cs112.finalproject.finalproject.Entities;
 import edu.miracosta.cs112.finalproject.finalproject.Items.Location;
 import edu.miracosta.cs112.finalproject.finalproject.Main;
 import edu.miracosta.cs112.finalproject.finalproject.controllers.GameController;
+import edu.miracosta.cs112.finalproject.finalproject.lib.AttackException;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -59,7 +59,7 @@ public class Enemy extends Entity {
         return new Point2D(x, y);
     }
 
-    public void attack(Stage stage, GameController gameController) {
+    public void attack(Stage stage, GameController gameController) throws AttackException {
         long currentTime = System.currentTimeMillis();
 
         //if this statement passes, that means attack is still on cooldown
@@ -81,6 +81,7 @@ public class Enemy extends Entity {
                 stage.show();
             } catch (IOException e) {
                 e.printStackTrace();
+                throw new AttackException("Attack is on cooldown!");
             }
             return;
         }

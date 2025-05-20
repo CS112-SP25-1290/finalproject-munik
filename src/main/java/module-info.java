@@ -4,7 +4,6 @@ module edu.miracosta.cs112.finalproject.finalproject {
     requires java.desktop;
     requires javafx.media;
 
-
     opens edu.miracosta.cs112.finalproject.finalproject to javafx.fxml;
     exports edu.miracosta.cs112.finalproject.finalproject;
     exports edu.miracosta.cs112.finalproject.finalproject.Items;

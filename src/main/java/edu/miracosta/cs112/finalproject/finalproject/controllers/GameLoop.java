@@ -4,6 +4,7 @@ import edu.miracosta.cs112.finalproject.finalproject.Entities.CharacterList;
 import edu.miracosta.cs112.finalproject.finalproject.Entities.Enemy;
 import edu.miracosta.cs112.finalproject.finalproject.Items.Bullet;
 import edu.miracosta.cs112.finalproject.finalproject.Items.Location;
+import edu.miracosta.cs112.finalproject.finalproject.lib.AttackException;
 import javafx.animation.AnimationTimer;
 import javafx.stage.Stage;
 
@@ -66,7 +67,12 @@ public class GameLoop extends AnimationTimer {
 
                 // Check if enemy is touching player (could implement damage here)
                 if (enemy.getLocation().distanceTo(currentPlayerLoc) < 50) {
-                    enemy.attack(stage, gameController);
+                    try {
+                        enemy.attack(stage, gameController);
+                    } catch (AttackException exc) {
+                        exc.printStackTrace();
+                    }
+
                 }
             }
         }
