@@ -1,6 +1,7 @@
 package edu.miracosta.cs112.finalproject.finalproject.controllers;
 
 import edu.miracosta.cs112.finalproject.finalproject.Main;
+import edu.miracosta.cs112.finalproject.finalproject.lib.AudioManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -13,6 +14,14 @@ public class HomeScreenController {
     @FXML
     private Label welcomeText;
 
+    private AudioManager audioManager;
+
+    @FXML
+    public void initialize() {
+        audioManager = new AudioManager("/edu/miracosta/cs112/finalproject/finalproject/sounds/lobby_track.mp3");
+        audioManager.playBackgroundMusic();
+    }
+
     @FXML
     protected void onPlayButtonClick() throws IOException  {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Game.fxml"));
@@ -22,6 +31,7 @@ public class HomeScreenController {
 
         stage.setScene(gameScene);
         stage.show();
+        audioManager.stopMusic();
     }
 
     @FXML

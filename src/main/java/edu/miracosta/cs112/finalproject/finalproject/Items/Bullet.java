@@ -25,7 +25,6 @@ public class Bullet {
     }
 
     public void setLocation(double x, double y) {
-        System.out.println("UPDATED BULLET LOCATION, " + x + ", " + y);
         this.location = new Location(x, y);
     }
 

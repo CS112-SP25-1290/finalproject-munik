@@ -5,17 +5,24 @@ import edu.miracosta.cs112.finalproject.finalproject.Entities.Enemy;
 import edu.miracosta.cs112.finalproject.finalproject.Items.Bullet;
 import edu.miracosta.cs112.finalproject.finalproject.Items.Location;
 import javafx.animation.AnimationTimer;
+import javafx.stage.Stage;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
 public class GameLoop extends AnimationTimer {
     private GameController gameController;
     private CharacterList currentCharacter = CharacterList.getInstance();
+    private Stage stage;
 
-    public GameLoop(GameController controller) {
-        this.gameController = controller;
+    public GameLoop getInstance() {
+        return this;
     }
+
+    public GameLoop(GameController controller, Stage stage) {
+        this.gameController = controller;
+        this.stage = stage;
+    }
+
 
     @Override
     public void handle(long now) {
@@ -59,8 +66,7 @@ public class GameLoop extends AnimationTimer {
 
                 // Check if enemy is touching player (could implement damage here)
                 if (enemy.getLocation().distanceTo(currentPlayerLoc) < 50) {
-                    enemy.attack();
-                    // TODO: Implement player damage
+                    enemy.attack(stage, gameController);
                 }
             }
         }

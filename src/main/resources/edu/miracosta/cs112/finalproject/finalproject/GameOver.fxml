@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12" fx:controller="edu.miracosta.cs112.finalproject.finalproject.controllers.GameOverController">
+    <VBox alignment="CENTER" spacing="20" style="-fx-background-color: red;">
+        <Label fx:id="gameOverLabel" style="-fx-font-size: 36px;" />
+        <Button fx:id="exitButton" prefHeight="25.0" prefWidth="81.0" text="Exit Game" />
+    </VBox>
+</StackPane>

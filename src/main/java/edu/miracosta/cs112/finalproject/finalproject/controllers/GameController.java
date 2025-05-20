@@ -2,11 +2,16 @@ package edu.miracosta.cs112.finalproject.finalproject.controllers;
 
 import edu.miracosta.cs112.finalproject.finalproject.Entities.CharacterList;
 import edu.miracosta.cs112.finalproject.finalproject.Entities.Enemy;
+import edu.miracosta.cs112.finalproject.finalproject.lib.AudioManager;
+import javafx.animation.FadeTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -23,19 +28,7 @@ public class GameController {
     private Label dmgLabel;
 
     @FXML
-    private Label fireRateLabel;
-
-    @FXML
-    private Label luckLabel;
-
-    @FXML
-    private Label coinsLabel;
-
-    @FXML
-    private Label bombsLabel;
-
-    @FXML
-    private Label keysLabel;
+    private Label pointsLabel;
 
     @FXML
     private Label roundLabel;
@@ -43,7 +36,11 @@ public class GameController {
     @FXML
     private Label timerLabel;
 
-    private CharacterList characterList = CharacterList.getInstance();
+    private Pane redFlashOverlay;
+
+    private static final GameController instance = new GameController();
+
+    private final CharacterList characterList = CharacterList.getInstance();
     private RoundManager roundManager;
 
     private int PLAYER_SPEED = 10;
@@ -60,9 +57,14 @@ public class GameController {
     double x;
     double y;
 
+    private GameLoop gameLoop;
+    private AudioManager audioManager;
+
     @FXML
     public void initialize() {
-        System.out.println("Started");
+        audioManager = new AudioManager("/edu/miracosta/cs112/finalproject/finalproject/sounds/gameplay_track.mp3");
+        audioManager.playBackgroundMusic();
+
         //sets stats to the selected character
         CharacterList.PlayableCharacter currentCharacter = characterList.getCurrentCharacter();
         if (currentCharacter == null) {
@@ -101,8 +103,21 @@ public class GameController {
         // Start the round-based game
         roundManager.startGame();
 
-        GameLoop gameLoop = new GameLoop(this);
-        gameLoop.start();
+        //red flash for when a player takes damage
+        redFlashOverlay = new Pane();
+        redFlashOverlay.setStyle("-fx-background-color: rgba(255, 0, 0, 0.5);");
+        redFlashOverlay.setVisible(false);
+        redFlashOverlay.setMouseTransparent(true);
+        redFlashOverlay.setPrefSize(root.getPrefWidth(), root.getPrefHeight());
+
+        root.getChildren().add(redFlashOverlay); // make sure it's above all elements
+
+
+        Platform.runLater(() -> {
+            Stage stage = (Stage) dmgLabel.getScene().getWindow();
+            gameLoop = new GameLoop(this, stage);
+            gameLoop.start();
+        });
     }
 
     public void updateStats() {
@@ -111,13 +126,9 @@ public class GameController {
         nameLabel.setText("Name: " + currentCharacter.getName());
         hpLabel.setText("HP: " + currentCharacter.getHp());
         dmgLabel.setText("DMG: " + currentCharacter.getDmg());
-        fireRateLabel.setText("Fire Rate: " + currentCharacter.getFireRate());
-        luckLabel.setText("Luck: " + currentCharacter.getLuck());
-        coinsLabel.setText("Coins: " + currentCharacter.getCoins());
-        bombsLabel.setText("Bombs: " + currentCharacter.getBombs());
-        keysLabel.setText("Keys: " + currentCharacter.getKeys());
-        xLocation.setText("X Loc: " + currentCharacter.getX());
-        yLocation.setText("Y Loc: " + currentCharacter.getY());
+        pointsLabel.setText("Score: " + currentCharacter.getScoretracker().getPoints());
+        xLocation.setText("X Loc: " + Math.round(currentCharacter.getX()));
+        yLocation.setText("Y Loc: " + Math.round(currentCharacter.getY()));
     }
 
     public void updatePlayerLoc() {
@@ -201,5 +212,26 @@ public class GameController {
 
     public RoundManager getRoundManager() {
         return roundManager;
+    }
+
+    public GameLoop getGameLoop() {
+        return gameLoop;
+    }
+
+    public static GameController getInstance() {
+        return instance;
+    }
+
+    public void flashRed() {
+        if (redFlashOverlay == null) return;
+
+        redFlashOverlay.setOpacity(1.0);
+        redFlashOverlay.setVisible(true);
+
+        FadeTransition fade = new FadeTransition(Duration.millis(300), redFlashOverlay);
+        fade.setFromValue(1.0);
+        fade.setToValue(0.0);
+        fade.setOnFinished(e -> redFlashOverlay.setVisible(false));
+        fade.play();
     }
 }

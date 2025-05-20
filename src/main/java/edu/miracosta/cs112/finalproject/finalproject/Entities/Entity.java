@@ -68,14 +68,6 @@ public abstract class Entity {
         return fireRate;
     }
 
-    public void setHP(int HP){
-        this.HP = HP;
-    }
-
-    public int getHP(){
-        return HP;
-    }
-
     public void setSpeed(int speed){
         this.speed = speed;
     }

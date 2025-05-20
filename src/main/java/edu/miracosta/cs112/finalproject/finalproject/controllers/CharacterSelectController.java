@@ -18,7 +18,7 @@ public class CharacterSelectController {
 
 
     @FXML
-    private Label nameLabel, descLabel, hpLabel, dmgLabel, fireRateLabel, luckLabel, coinsLabel, bombsLabel, keysLabel;
+    private Label nameLabel, descLabel, hpLabel, dmgLabel, fireRateLabel, pointsLabel;
 
     private final CharacterList characterList = CharacterList.getInstance();
     public static CharacterList.PlayableCharacter selectedCharacter;
@@ -76,10 +76,7 @@ public class CharacterSelectController {
         hpLabel.setText("HP: " + character.getHp());
         dmgLabel.setText("DMG: " + character.getDmg());
         fireRateLabel.setText("Fire Rate: " + character.getFireRate());
-        luckLabel.setText("Luck: " + character.getLuck());
-        coinsLabel.setText("Coins: " + character.getCoins());
-        bombsLabel.setText("Bombs: " + character.getBombs());
-        keysLabel.setText("Keys: " + character.getKeys());
+        pointsLabel.setText("Score: " + character.getScoretracker().getPoints());
         characterList.setCurrentCharacter(character);
     }
 }

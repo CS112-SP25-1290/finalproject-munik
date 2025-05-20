@@ -3,6 +3,8 @@ package edu.miracosta.cs112.finalproject.finalproject.Entities;
 
 import edu.miracosta.cs112.finalproject.finalproject.Items.Bullet;
 import edu.miracosta.cs112.finalproject.finalproject.Items.Location;
+import edu.miracosta.cs112.finalproject.finalproject.lib.AudioManager;
+import edu.miracosta.cs112.finalproject.finalproject.lib.ScoreTracker;
 import javafx.animation.AnimationTimer;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -12,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 //creating a list of playable characters
-//In order to create new characters (name, description, HP, DMG, Fire Rate, Luck, Coins, Bombs, Keys)
+//In order to create new characters (name, description, HP, DMG, Fire Rate, Points)
 public class CharacterList {
     private static final CharacterList instance = new CharacterList();
     public static List<Bullet> bullets = new ArrayList<>();
@@ -25,7 +27,8 @@ public class CharacterList {
         private String name;
         private String description;
 
-        private int hp, speed, dmg, fireRate, luck, coins, bombs, keys;
+        private int hp, speed, dmg;
+        private ScoreTracker scoreTracker;
         private double x;
 
         public double getY() {
@@ -45,18 +48,15 @@ public class CharacterList {
         }
 
         private double y;
+        private final AudioManager audioManager = new AudioManager();
 
-        public PlayableCharacter(String name, String description, int hp, int speed, int dmg, int fireRate, int luck, int coins, int bombs, int keys) {
+        public PlayableCharacter(String name, String description, int hp, int speed, int dmg, int points) {
             this.name = name;
             this.description = description;
             this.hp = hp;
             this.speed = speed;
             this.dmg = dmg;
-            this.fireRate = fireRate;
-            this.luck = luck;
-            this.coins = coins;
-            this.bombs = bombs;
-            this.keys = keys;
+            scoreTracker = new ScoreTracker(points);
         }
         //Getters
         public String getName() {
@@ -68,30 +68,20 @@ public class CharacterList {
         public int getHp() {
             return hp;
         }
+
+        public void setHp(int newHp) {
+            this.hp = newHp;
+        }
         public int getSpeed() {
             return speed;
         }
         public int getDmg() {
             return dmg;
         }
-        public int getFireRate() {
-            return fireRate;
-        }
-        public int getLuck() {
-            return luck;
-        }
-        public int getCoins() {
-            return coins;
-        }
-        public int getBombs() {
-            return bombs;
-        }
-        public int getKeys() {
-            return keys;
-        }
-
+        public ScoreTracker getScoretracker() {return scoreTracker; }
 
         public void shoot(double mouseX, double mouseY, double startX, double startY, Pane root) {
+            audioManager.playSound("/edu/miracosta/cs112/finalproject/finalproject/sounds/bullet_shot.mp3");
             Bullet bullet = new Bullet(startX, startY);
             Circle circle = bullet.getCircle();
             circle.setFill(Color.GHOSTWHITE);
@@ -123,7 +113,7 @@ public class CharacterList {
                     if (circle.getCenterX() <= 0 || circle.getCenterX() >= 1280 ||
                             circle.getCenterY() <= 0 || circle.getCenterY() >= 720) {
                         stop();
-                        root.getChildren().remove(circle);
+                        bullet.removeBullet(root);
                         System.out.println("Cleaned up circle");
                     }
                 }
@@ -136,10 +126,10 @@ public class CharacterList {
         }
     }
 
-    private PlayableCharacter character1 = new PlayableCharacter("Isaac", "Average stats across the board", 3, 8, 3, 3, 0, 3, 1, 0);
-    private PlayableCharacter character2 = new PlayableCharacter("Maggie", "Beefier but weaker", 4, 6, 2, 2, 1, 2, 0, 1);
-    private PlayableCharacter character3 = new PlayableCharacter("Garbo","The ultimate spy", 3, 10, 2, 3, 6, 0, 0, 3);
-    private PlayableCharacter character4 = new PlayableCharacter("Erwin", "Commander", 3, 6, 5, 2, 2, 2, 1, 0);
+    private PlayableCharacter character1 = new PlayableCharacter("Isaac", "Average stats across the board", 3, 8, 3, 0);
+    private PlayableCharacter character2 = new PlayableCharacter("Maggie", "Beefier but weaker", 4, 6, 2, 0);
+    private PlayableCharacter character3 = new PlayableCharacter("Garbo","The ultimate spy", 3, 10, 2, 0);
+    private PlayableCharacter character4 = new PlayableCharacter("Erwin", "Commander", 3, 6, 5, 0);
     public PlayableCharacter getIsaac() { return character1; }
     public PlayableCharacter getCharacter2() { return character2; }
     public PlayableCharacter getCharacter3() { return character3; }

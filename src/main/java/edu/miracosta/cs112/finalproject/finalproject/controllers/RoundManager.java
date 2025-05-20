@@ -1,5 +1,6 @@
 package edu.miracosta.cs112.finalproject.finalproject.controllers;
 
+import edu.miracosta.cs112.finalproject.finalproject.Entities.CharacterList;
 import edu.miracosta.cs112.finalproject.finalproject.Entities.Enemy;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -12,9 +13,9 @@ import java.util.List;
 
 public class RoundManager {
     private static final int MAX_ROUNDS = 40;
-    private static final int ROUND_DURATION_SECONDS = 10;
     private static final int BASE_ENEMIES = 3;
     private static final int ENEMIES_INCREMENT = 1;
+    private static final int SCALING_FACTOR = 2;
 
     private int currentRound = 0;
     private Timeline roundTimer;
@@ -23,6 +24,7 @@ public class RoundManager {
     private Label timerLabel;
     private int secondsRemaining;
     private List<Enemy> activeEnemies = new ArrayList<>();
+    private CharacterList characterList = CharacterList.getInstance();
 
     public RoundManager(Pane gamePane, Label roundLabel, Label timerLabel) {
         this.gamePane = gamePane;
@@ -46,7 +48,7 @@ public class RoundManager {
                     }
                 })
         );
-        roundTimer.setCycleCount(ROUND_DURATION_SECONDS);
+        roundTimer.setCycleCount(secondsRemaining);
     }
 
     public void startGame() {
@@ -59,7 +61,8 @@ public class RoundManager {
         // For now we're letting them persist between rounds
 
         currentRound++;
-        secondsRemaining = ROUND_DURATION_SECONDS;
+        secondsRemaining = calculateRoundDuration(currentRound);
+
 
         // Update the round display
         updateRoundDisplay();
@@ -84,7 +87,7 @@ public class RoundManager {
                     }
                 })
         );
-        roundTimer.setCycleCount(ROUND_DURATION_SECONDS);
+        roundTimer.setCycleCount(secondsRemaining);
         roundTimer.play();
     }
 
@@ -159,5 +162,13 @@ public class RoundManager {
 
     public void removeEnemy(Enemy enemy) {
         activeEnemies.remove(enemy);
+        CharacterList.PlayableCharacter currentCharacter = characterList.getCurrentCharacter();
+        currentCharacter.getScoretracker().addPoint(1);
+    }
+
+    private int calculateRoundDuration(int round) {
+        int newTime = (int) Math.round(4 + Math.log(round + 1) * SCALING_FACTOR);
+
+        return newTime > 7 ? 7 : newTime;
     }
 }

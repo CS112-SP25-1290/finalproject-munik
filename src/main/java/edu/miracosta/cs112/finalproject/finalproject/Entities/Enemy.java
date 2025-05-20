@@ -1,10 +1,18 @@
 package edu.miracosta.cs112.finalproject.finalproject.Entities;
 
 import edu.miracosta.cs112.finalproject.finalproject.Items.Location;
+import edu.miracosta.cs112.finalproject.finalproject.Main;
+import edu.miracosta.cs112.finalproject.finalproject.controllers.GameController;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.Random;
 
 public class Enemy extends Entity {
@@ -13,7 +21,9 @@ public class Enemy extends Entity {
     private double x, y;
     private Location loc;
     private int ENEMY_SPEED = 1;
-    private Rectangle tempEnemy;
+    private ImageView tempEnemy;
+    private long lastAttackTime = 0; // Stores the time of last attack
+    private final long attackCooldownMillis = 1000; // 1 second cooldown (you can adjust this)
 
     public Enemy(Pane root) {
         super("Enemy 1", "Temp Description", 4, 50, 5);
@@ -25,7 +35,7 @@ public class Enemy extends Entity {
         if(root == null) return;
 
         System.out.println("Root is nonnull");
-        tempEnemy = new Rectangle();
+        tempEnemy = new ImageView(new Image(getClass().getResource("/edu/miracosta/cs112/finalproject/finalproject/images/enemy.png").toExternalForm()));
 
         Point2D randomLocation = getRandomLocation(root);
         tempEnemy.setX(randomLocation.getX());
@@ -35,9 +45,6 @@ public class Enemy extends Entity {
         loc = new Location(x, y);
 
         System.out.println("Random X: " + randomLocation.getX() + " Random Y: " + randomLocation.getY());
-
-        tempEnemy.setHeight(100);
-        tempEnemy.setWidth(50);
 
         root.getChildren().add(tempEnemy);
     }
@@ -52,8 +59,34 @@ public class Enemy extends Entity {
         return new Point2D(x, y);
     }
 
-    public void attack() {
+    public void attack(Stage stage, GameController gameController) {
+        long currentTime = System.currentTimeMillis();
 
+        //if this statement passes, that means attack is still on cooldown
+        if (currentTime - lastAttackTime < attackCooldownMillis) {
+            return;
+        }
+
+        lastAttackTime = currentTime;
+
+        CharacterList.PlayableCharacter currentCharacter = characterList.getCurrentCharacter();
+
+        if(currentCharacter.getHp() - 1 <= 0) {
+            //stopping our game loop
+            gameController.getGameLoop().stop();
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("GameOver.fxml"));
+                Scene charSelectScene = new Scene(fxmlLoader.load(), 1280, 720); // Adjust size as needed
+                stage.setScene(charSelectScene);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return;
+        }
+
+        currentCharacter.setHp(currentCharacter.getHp() - 1);
+        gameController.flashRed();
     }
 
     public void eliminateEnemy() {
@@ -91,7 +124,7 @@ public class Enemy extends Entity {
         return loc;
     }
 
-    public Rectangle getTempEnemy() {
+    public ImageView getTempEnemy() {
         return tempEnemy;
     }
 }
