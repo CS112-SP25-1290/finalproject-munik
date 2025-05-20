@@ -15,7 +15,7 @@
         <Insets bottom="20" left="20" right="20" top="20"/>
     </padding>
 
-    <Label fx:id="welcomeText" text="Welcome to the game!"/>
+    <Label fx:id="welcomeText" text="Welcome to Cave Fighter!"/>
     <Button text="Play" onAction="#onPlayButtonClick"/>
     <Button text="Select Character" onAction="#onSelectCharButtonClick"/>
     <Button text="Quit" onAction="#onQuitButtonClick"/>
