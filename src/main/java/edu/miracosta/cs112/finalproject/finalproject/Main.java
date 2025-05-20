@@ -20,7 +20,7 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Player.fxml"));
         Scene homeScreen = new Scene(fxmlLoader.load(), 1280, 720);
-        stage.setTitle("Temp Game Name");
+        stage.setTitle("Cave Fighter");
         stage.setScene(homeScreen);
         stage.show();
     }
