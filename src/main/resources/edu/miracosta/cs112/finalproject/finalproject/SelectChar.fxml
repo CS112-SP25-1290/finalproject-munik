@@ -26,10 +26,7 @@
         <Label fx:id="hpLabel" text="HP: " />
         <Label fx:id="dmgLabel" text="DMG: " />
         <Label fx:id="fireRateLabel" text="Fire Rate: " />
-        <Label fx:id="luckLabel" text="Luck: " />
-        <Label fx:id="coinsLabel" text="Coins: " />
-        <Label fx:id="bombsLabel" text="Bombs: " />
-        <Label fx:id="keysLabel" text="Keys: " />
+        <Label fx:id="pointsLabel" text="Score: " />
     </VBox>
 
     <Button fx:id="backButton" text="Back" onAction="#onBackButtonClick"/>

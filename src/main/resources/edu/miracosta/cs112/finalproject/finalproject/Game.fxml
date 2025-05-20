@@ -16,7 +16,7 @@
             <Label fx:id="nameLabel" text="Name: " />
             <Label fx:id="hpLabel" text="HP: " />
             <Label fx:id="dmgLabel" text="DMG: " />
-            <Label fx:id="pointsLabel" text="Coins: " />
+            <Label fx:id="pointsLabel" text="Points: " />
             <Label text="X Loc: " fx:id="xLocation" />
             <Label fx:id="yLocation" text="Y Loc: " />
         </VBox>
